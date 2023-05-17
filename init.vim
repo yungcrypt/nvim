@@ -1,65 +1,34 @@
-
-
-set clipboard=unnamedplus
-
-
-
-" Plugins will be downloaded under the specified directory.
-call plug#begin('~/.local/share/nvim/site/plugged')
-" Declare the list of plugins.
-Plug 'vim-airline/vim-airline'
-Plug 'scrooloose/nerdtree'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Visual Settings
-Plug 'junegunn/limelight.vim'
-
-" Color theme plugins
-Plug 'joshdick/onedark.vim'
-
-" List ends here. Plugins become visible to Vim after this call.
-call plug#end()
-
-:inoremap jh <Esc>
-autocmd VimEnter * NERDTree
-
-syntax on
-
-colorscheme onedark
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" Visual Settings
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" For Goyo
-
-" For LimeLight
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-" highlight line
-let g:limelight_bop = '^.*$'
-" let g:limelight_eop = '\n'
-let g:limelight_paragraph_span = 0
-
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" UI Settings
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" Keep cursor in the middle of the page, useful for editing text
-set so=999
-" Turn limelight on by default
-" autocmd VimEnter * Limelight
-" Turn Goyo on by default
-" autocmd VimEnter * AirlineToggle
-" In Goyo, if airline is turned on, do nto show scratch area
-" autocmd! User GoyoEnter nested set eventignore=FocusGained
-" autocmd! User GoyoLeave nested set eventignore=
-set autoindent
-set noswapfile  
-
 set number
-
-command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
-nnoremap <C-t> :NERDTreeToggle<CR>
-
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+call plug#begin()
+Plug 'tyru/open-browser.vim' " opens url in browser
+Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
+Plug 'https://github.com/preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
+Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
+Plug 'preservim/nerdtree'
+Plug 'mattn/emmet-vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'frazrepo/vim-rainbow'
+Plug 'itchyny/lightline.vim'
+Plug 'godlygeek/tabular'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'SirVer/ultisnips'
+Plug 'mlaursen/vim-react-snippets'
+call plug#end()
+set nuw=6
+syntax enable
+filetype plugin indent on
+nmap <F6> :NERDTreeToggle<CR>
+imap jj <Esc>
+imap hh <End>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+highlight LineNr ctermfg=grey ctermbg=white
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+            else 
+                call CocAction('doHover')
+            endif 
+                endfunction
